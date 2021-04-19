@@ -80,6 +80,7 @@
         <openapi-generator-maven-plugin.version>4.3.1</openapi-generator-maven-plugin.version>
         <properties-maven-plugin.version>1.0.0</properties-maven-plugin.version>
         <sonar-maven-plugin.version>3.8.0.2131</sonar-maven-plugin.version>
+        <springfox-swagger-ui.version>2.9.2</springfox-swagger-ui.version>
         <!-- jhipster-needle-maven-property -->
     </properties>
 
@@ -137,6 +138,11 @@
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-bean-validators</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>${springfox-swagger-ui.version}</version>
         </dependency>
         <dependency>
             <groupId>com.zaxxer</groupId>
