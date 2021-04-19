@@ -55,6 +55,10 @@ spring:
     allow-bean-definition-overriding: true
   messages:
     basename: i18n/messages
+  security:
+    user:
+      name: test
+      password: test
   task:
     execution:
       thread-name-prefix: trialwork-task-
@@ -90,14 +94,11 @@ jhipster:
       host: localhost
       port: 5000
       queue-size: 512
-  mail:
-    from: test@localhost
-    base-url: http://127.0.0.1:8080
   security:
     authentication:
       jwt:
         # This token must be encoded using Base64 (you can type `echo 'secret-key'|base64` on your command line)
-        base64-secret: YWE2NTcxYmRlYjAxNzkwMTJmYmNjM2EwZTFhYzFmZWI1MzY0YjJjYjA3ZTViNWI1ODg1NjYwZmRlOGU5MTY2YWMwN2ZmOGIzNmUzMGI3NTkyNTNkOTk1NDQxY2U1NzljYTBmODkwZWZkZjZhOTA2OWI5YWJlOWM1NjQzNDI0Yzc=
+        base64-secret: MGE3OTJhMmMzNWJhMjhlN2NiZmQxYmY5NTcwZTRjZjMyYzA0NzRiMzI5ZjgxZDg4ZmZmODA2NmZjNmM0YjAwZTA4ZWQwOTM1ZWZmNTU4YTdhZWU0YTgzMjFlOTJkNTEwNWUxNmRlMWY5OTJjYzNlNmYxNDIzY2ExMDQyZDk3ZGY=
         # Token is valid 24 hours
         token-validity-in-seconds: 86400
 # ===================================================================

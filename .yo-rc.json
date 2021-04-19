@@ -1,5 +1,6 @@
 {
   "generator-jhipster": {
+    "skipUserManagement": true,
     "blueprints": [],
     "otherModules": [],
     "applicationType": "monolith",
@@ -7,7 +8,6 @@
     "jhipsterVersion": "7.0.1",
     "skipClient": true,
     "skipServer": false,
-    "skipUserManagement": false,
     "skipCheckLengthOfIdentifier": false,
     "skipFakeData": false,
     "jhiPrefix": "jhi",
@@ -15,7 +15,7 @@
     "dtoSuffix": "DTO",
     "testFrameworks": [],
     "pages": [],
-    "creationTimestamp": 1618822187367,
+    "creationTimestamp": 1618846735221,
     "serviceDiscoveryType": false,
     "reactive": false,
     "authenticationType": "jwt",
@@ -36,7 +36,7 @@
     "enableTranslation": false,
     "nativeLanguage": "en",
     "packageFolder": "org/tds/trial",
-    "jwtSecretKey": "YWE2NTcxYmRlYjAxNzkwMTJmYmNjM2EwZTFhYzFmZWI1MzY0YjJjYjA3ZTViNWI1ODg1NjYwZmRlOGU5MTY2YWMwN2ZmOGIzNmUzMGI3NTkyNTNkOTk1NDQxY2U1NzljYTBmODkwZWZkZjZhOTA2OWI5YWJlOWM1NjQzNDI0Yzc=",
+    "jwtSecretKey": "MGE3OTJhMmMzNWJhMjhlN2NiZmQxYmY5NTcwZTRjZjMyYzA0NzRiMzI5ZjgxZDg4ZmZmODA2NmZjNmM0YjAwZTA4ZWQwOTM1ZWZmNTU4YTdhZWU0YTgzMjFlOTJkNTEwNWUxNmRlMWY5OTJjYzNlNmYxNDIzY2ExMDQyZDk3ZGY=",
     "clientPackageManager": "npm",
     "clientTheme": "none",
     "clientThemeVariant": "",
