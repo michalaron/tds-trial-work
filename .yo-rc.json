@@ -15,7 +15,7 @@
     "dtoSuffix": "DTO",
     "testFrameworks": [],
     "pages": [],
-    "creationTimestamp": 1618846735221,
+    "creationTimestamp": 1618852067835,
     "serviceDiscoveryType": false,
     "reactive": false,
     "authenticationType": "jwt",
@@ -36,11 +36,13 @@
     "enableTranslation": false,
     "nativeLanguage": "en",
     "packageFolder": "org/tds/trial",
-    "jwtSecretKey": "MGE3OTJhMmMzNWJhMjhlN2NiZmQxYmY5NTcwZTRjZjMyYzA0NzRiMzI5ZjgxZDg4ZmZmODA2NmZjNmM0YjAwZTA4ZWQwOTM1ZWZmNTU4YTdhZWU0YTgzMjFlOTJkNTEwNWUxNmRlMWY5OTJjYzNlNmYxNDIzY2ExMDQyZDk3ZGY=",
+    "jwtSecretKey": "NGM0YmExM2I0NTA3MGJhMTdjMjllMWI2ODYzZjA3NmI0ZDZmMDQ2MzhlZGU0YjI5MWFkZTIzMzEyY2JhNDQ3Yzk1MTUzYjcyZjFiNzI3NTU4YWQwODFmYjhkMTliNmNkY2I0NjRjNDU2OWZkZTAzNjBhZjQ0YmEyOGJiNTM0MjI=",
     "clientPackageManager": "npm",
     "clientTheme": "none",
     "clientThemeVariant": "",
     "withAdminUi": true,
-    "languages": ["en", "fr"]
+    "languages": ["en", "fr"],
+    "entities": ["TdsUser", "Device"],
+    "lastLiquibaseTimestamp": 1618852452000
   }
 }
