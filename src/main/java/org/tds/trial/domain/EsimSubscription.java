@@ -1,5 +1,6 @@
 package org.tds.trial.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -31,6 +32,10 @@ public class EsimSubscription implements Serializable {
     @NotNull
     @Column(name = "encoded_activation_code", nullable = false)
     private String encodedActivationCode;
+
+    @JsonIgnoreProperties(value = { "subscription", "device" }, allowSetters = true)
+    @OneToOne(mappedBy = "subscription")
+    private Esim esim;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -96,6 +101,25 @@ public class EsimSubscription implements Serializable {
 
     public void setEncodedActivationCode(String encodedActivationCode) {
         this.encodedActivationCode = encodedActivationCode;
+    }
+
+    public Esim getEsim() {
+        return this.esim;
+    }
+
+    public EsimSubscription esim(Esim esim) {
+        this.setEsim(esim);
+        return this;
+    }
+
+    public void setEsim(Esim esim) {
+        if (this.esim != null) {
+            this.esim.setSubscription(null);
+        }
+        if (esim != null) {
+            esim.setSubscription(this);
+        }
+        this.esim = esim;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here

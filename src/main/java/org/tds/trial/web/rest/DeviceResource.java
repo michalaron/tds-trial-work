@@ -1,5 +1,7 @@
 package org.tds.trial.web.rest;
 
+import io.swagger.annotations.Api;
+import io.swagger.v3.oas.annotations.Operation;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -24,6 +26,7 @@ import tech.jhipster.web.util.ResponseUtil;
  */
 @RestController
 @RequestMapping("/api")
+@Api(tags = "Device resource")
 public class DeviceResource {
 
     private final Logger log = LoggerFactory.getLogger(DeviceResource.class);
@@ -46,10 +49,12 @@ public class DeviceResource {
      * {@code POST  /devices} : Create a new device.
      *
      * @param deviceDTO the deviceDTO to create.
-     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new deviceDTO, or with status {@code 400 (Bad Request)} if the device has already an ID.
+     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new deviceDTO, or with status {@code 400 (Bad Request)} if the
+     * device has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/devices")
+    @Operation(summary = "Create a new device")
     public ResponseEntity<DeviceDTO> createDevice(@Valid @RequestBody DeviceDTO deviceDTO) throws URISyntaxException {
         log.debug("REST request to save Device : {}", deviceDTO);
         if (deviceDTO.getId() != null) {
@@ -67,28 +72,25 @@ public class DeviceResource {
      *
      * @param id the id of the deviceDTO to save.
      * @param deviceDTO the deviceDTO to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated deviceDTO,
-     * or with status {@code 400 (Bad Request)} if the deviceDTO is not valid,
-     * or with status {@code 500 (Internal Server Error)} if the deviceDTO couldn't be updated.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated deviceDTO, or with status {@code 400 (Bad Request)} if the
+     * deviceDTO is not valid, or with status {@code 500 (Internal Server Error)} if the deviceDTO couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/devices/{id}")
+    @Operation(summary = "Update an existing device")
     public ResponseEntity<DeviceDTO> updateDevice(
         @PathVariable(value = "id", required = false) final Long id,
         @Valid @RequestBody DeviceDTO deviceDTO
     ) throws URISyntaxException {
         log.debug("REST request to update Device : {}, {}", id, deviceDTO);
-        if (deviceDTO.getId() == null) {
+        if (id == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        if (!Objects.equals(id, deviceDTO.getId())) {
-            throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
-        }
-
         if (!deviceRepository.existsById(id)) {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
+        deviceDTO.setId(id);
         DeviceDTO result = deviceService.save(deviceDTO);
         return ResponseEntity
             .ok()
@@ -101,29 +103,26 @@ public class DeviceResource {
      *
      * @param id the id of the deviceDTO to save.
      * @param deviceDTO the deviceDTO to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated deviceDTO,
-     * or with status {@code 400 (Bad Request)} if the deviceDTO is not valid,
-     * or with status {@code 404 (Not Found)} if the deviceDTO is not found,
-     * or with status {@code 500 (Internal Server Error)} if the deviceDTO couldn't be updated.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated deviceDTO, or with status {@code 400 (Bad Request)} if the
+     * deviceDTO is not valid, or with status {@code 404 (Not Found)} if the deviceDTO is not found, or with status {@code 500 (Internal Server Error)} if the
+     * deviceDTO couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PatchMapping(value = "/devices/{id}", consumes = "application/merge-patch+json")
+    @Operation(summary = "Partial update given fields of an existing device")
     public ResponseEntity<DeviceDTO> partialUpdateDevice(
         @PathVariable(value = "id", required = false) final Long id,
         @NotNull @RequestBody DeviceDTO deviceDTO
     ) throws URISyntaxException {
         log.debug("REST request to partial update Device partially : {}, {}", id, deviceDTO);
-        if (deviceDTO.getId() == null) {
+        if (id == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        if (!Objects.equals(id, deviceDTO.getId())) {
-            throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
-        }
-
         if (!deviceRepository.existsById(id)) {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
+        deviceDTO.setId(id);
         Optional<DeviceDTO> result = deviceService.partialUpdate(deviceDTO);
 
         return ResponseUtil.wrapOrNotFound(
@@ -138,6 +137,7 @@ public class DeviceResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of devices in body.
      */
     @GetMapping("/devices")
+    @Operation(summary = "Get all the devices")
     public List<DeviceDTO> getAllDevices() {
         log.debug("REST request to get all Devices");
         return deviceService.findAll();
@@ -150,6 +150,7 @@ public class DeviceResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the deviceDTO, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/devices/{id}")
+    @Operation(summary = "Get a device")
     public ResponseEntity<DeviceDTO> getDevice(@PathVariable Long id) {
         log.debug("REST request to get Device : {}", id);
         Optional<DeviceDTO> deviceDTO = deviceService.findOne(id);
@@ -163,6 +164,7 @@ public class DeviceResource {
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/devices/{id}")
+    @Operation(summary = "Delete a device")
     public ResponseEntity<Void> deleteDevice(@PathVariable Long id) {
         log.debug("REST request to delete Device : {}", id);
         deviceService.delete(id);

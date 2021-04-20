@@ -1,5 +1,7 @@
 package org.tds.trial.service.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.Serializable;
 import java.util.Objects;
 import javax.validation.constraints.*;
@@ -10,6 +12,7 @@ import org.tds.trial.domain.enumeration.EsimState;
  */
 public class EsimDTO implements Serializable {
 
+    @Schema(description = "Esim ID", readOnly = true)
     private Long id;
 
     @NotNull
@@ -26,8 +29,11 @@ public class EsimDTO implements Serializable {
     @NotNull
     private Boolean active;
 
+    @JsonIgnoreProperties(value = { "esim" }, allowSetters = true)
     private EsimSubscriptionDTO subscription;
 
+    //TODO - upgrade to jackson 2.12 and use @JacksonIncludeProperties with just id instead
+    @JsonIgnoreProperties(value = { "esims", "user", "identifier", "name", "email", "phoneNumber", "metatag" }, allowSetters = true)
     private DeviceDTO device;
 
     public Long getId() {
@@ -116,17 +122,8 @@ public class EsimDTO implements Serializable {
     }
 
     // prettier-ignore
-    @Override
-    public String toString() {
-        return "EsimDTO{" +
-            "id=" + getId() +
-            ", iccid='" + getIccid() + "'" +
-            ", imsi='" + getImsi() + "'" +
-            ", eid='" + getEid() + "'" +
-            ", state='" + getState() + "'" +
-            ", active='" + getActive() + "'" +
-            ", subscription=" + getSubscription() +
-            ", device=" + getDevice() +
-            "}";
-    }
+  @Override
+  public String toString() {
+    return "EsimDTO{" + "id=" + getId() + ", iccid='" + getIccid() + "'" + ", imsi='" + getImsi() + "'" + ", eid='" + getEid() + "'" + ", state='" + getState() + "'" + ", active='" + getActive() + "'" + ", subscription=" + getSubscription() + ", device=" + getDevice() + "}";
+  }
 }

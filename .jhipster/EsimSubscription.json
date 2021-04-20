@@ -21,7 +21,16 @@
       "fieldValidateRules": ["required"]
     }
   ],
-  "relationships": [],
+  "relationships": [
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "esim",
+      "otherEntityRelationshipName": "subscription",
+      "relationshipValidateRules": "required",
+      "relationshipName": "esim",
+      "ownerSide": false
+    }
+  ],
   "entityTableName": "esim_subscription",
   "dto": "mapstruct",
   "pagination": "no",

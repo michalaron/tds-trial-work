@@ -18,6 +18,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 import org.tds.trial.IntegrationTest;
+import org.tds.trial.domain.Esim;
 import org.tds.trial.domain.EsimSubscription;
 import org.tds.trial.repository.EsimSubscriptionRepository;
 import org.tds.trial.service.dto.EsimSubscriptionDTO;
@@ -75,6 +76,16 @@ class EsimSubscriptionResourceIT {
             .activationCode(DEFAULT_ACTIVATION_CODE)
             .confirmationCode(DEFAULT_CONFIRMATION_CODE)
             .encodedActivationCode(DEFAULT_ENCODED_ACTIVATION_CODE);
+        // Add required entity
+        Esim esim;
+        if (TestUtil.findAll(em, Esim.class).isEmpty()) {
+            esim = EsimResourceIT.createEntity(em);
+            em.persist(esim);
+            em.flush();
+        } else {
+            esim = TestUtil.findAll(em, Esim.class).get(0);
+        }
+        esimSubscription.setEsim(esim);
         return esimSubscription;
     }
 
@@ -90,6 +101,16 @@ class EsimSubscriptionResourceIT {
             .activationCode(UPDATED_ACTIVATION_CODE)
             .confirmationCode(UPDATED_CONFIRMATION_CODE)
             .encodedActivationCode(UPDATED_ENCODED_ACTIVATION_CODE);
+        // Add required entity
+        Esim esim;
+        if (TestUtil.findAll(em, Esim.class).isEmpty()) {
+            esim = EsimResourceIT.createUpdatedEntity(em);
+            em.persist(esim);
+            em.flush();
+        } else {
+            esim = TestUtil.findAll(em, Esim.class).get(0);
+        }
+        esimSubscription.setEsim(esim);
         return esimSubscription;
     }
 

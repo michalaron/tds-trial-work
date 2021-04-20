@@ -83,7 +83,7 @@ class DeviceResourceIT {
         // Add required entity
         TdsUser tdsUser;
         if (TestUtil.findAll(em, TdsUser.class).isEmpty()) {
-            tdsUser = TdsUserResourceIT.createEntity(em);
+            tdsUser = UserResourceIT.createEntity(em);
             em.persist(tdsUser);
             em.flush();
         } else {
@@ -109,7 +109,7 @@ class DeviceResourceIT {
         // Add required entity
         TdsUser tdsUser;
         if (TestUtil.findAll(em, TdsUser.class).isEmpty()) {
-            tdsUser = TdsUserResourceIT.createUpdatedEntity(em);
+            tdsUser = UserResourceIT.createUpdatedEntity(em);
             em.persist(tdsUser);
             em.flush();
         } else {

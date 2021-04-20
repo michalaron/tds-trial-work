@@ -1,5 +1,7 @@
 package org.tds.trial.web.rest;
 
+import io.swagger.annotations.Api;
+import io.swagger.v3.oas.annotations.Operation;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -24,6 +26,7 @@ import tech.jhipster.web.util.ResponseUtil;
  */
 @RestController
 @RequestMapping("/api")
+@Api(tags = "Esim resource")
 public class EsimResource {
 
     private final Logger log = LoggerFactory.getLogger(EsimResource.class);
@@ -46,10 +49,12 @@ public class EsimResource {
      * {@code POST  /esims} : Create a new esim.
      *
      * @param esimDTO the esimDTO to create.
-     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new esimDTO, or with status {@code 400 (Bad Request)} if the esim has already an ID.
+     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new esimDTO, or with status {@code 400 (Bad Request)} if the esim
+     * has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/esims")
+    @Operation(summary = "Create a new Esim")
     public ResponseEntity<EsimDTO> createEsim(@Valid @RequestBody EsimDTO esimDTO) throws URISyntaxException {
         log.debug("REST request to save Esim : {}", esimDTO);
         if (esimDTO.getId() != null) {
@@ -67,28 +72,26 @@ public class EsimResource {
      *
      * @param id the id of the esimDTO to save.
      * @param esimDTO the esimDTO to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated esimDTO,
-     * or with status {@code 400 (Bad Request)} if the esimDTO is not valid,
-     * or with status {@code 500 (Internal Server Error)} if the esimDTO couldn't be updated.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated esimDTO, or with status {@code 400 (Bad Request)} if the
+     * esimDTO
+     * is not valid, or with status {@code 500 (Internal Server Error)} if the esimDTO couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/esims/{id}")
+    @Operation(summary = "Update an existing esim")
     public ResponseEntity<EsimDTO> updateEsim(
         @PathVariable(value = "id", required = false) final Long id,
         @Valid @RequestBody EsimDTO esimDTO
     ) throws URISyntaxException {
         log.debug("REST request to update Esim : {}, {}", id, esimDTO);
-        if (esimDTO.getId() == null) {
+        if (id == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        if (!Objects.equals(id, esimDTO.getId())) {
-            throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
-        }
-
         if (!esimRepository.existsById(id)) {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
+        esimDTO.setId(id);
         EsimDTO result = esimService.save(esimDTO);
         return ResponseEntity
             .ok()
@@ -101,29 +104,27 @@ public class EsimResource {
      *
      * @param id the id of the esimDTO to save.
      * @param esimDTO the esimDTO to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated esimDTO,
-     * or with status {@code 400 (Bad Request)} if the esimDTO is not valid,
-     * or with status {@code 404 (Not Found)} if the esimDTO is not found,
-     * or with status {@code 500 (Internal Server Error)} if the esimDTO couldn't be updated.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated esimDTO, or with status {@code 400 (Bad Request)} if the
+     * esimDTO
+     * is not valid, or with status {@code 404 (Not Found)} if the esimDTO is not found, or with status {@code 500 (Internal Server Error)} if the esimDTO
+     * couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PatchMapping(value = "/esims/{id}", consumes = "application/merge-patch+json")
+    @Operation(summary = "Partial update given fields of an existing esim")
     public ResponseEntity<EsimDTO> partialUpdateEsim(
         @PathVariable(value = "id", required = false) final Long id,
         @NotNull @RequestBody EsimDTO esimDTO
     ) throws URISyntaxException {
         log.debug("REST request to partial update Esim partially : {}, {}", id, esimDTO);
-        if (esimDTO.getId() == null) {
+        if (id == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        if (!Objects.equals(id, esimDTO.getId())) {
-            throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
-        }
-
         if (!esimRepository.existsById(id)) {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
+        esimDTO.setId(id);
         Optional<EsimDTO> result = esimService.partialUpdate(esimDTO);
 
         return ResponseUtil.wrapOrNotFound(
@@ -138,6 +139,7 @@ public class EsimResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of esims in body.
      */
     @GetMapping("/esims")
+    @Operation(summary = "Get all the Esims")
     public List<EsimDTO> getAllEsims() {
         log.debug("REST request to get all Esims");
         return esimService.findAll();
@@ -150,6 +152,7 @@ public class EsimResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the esimDTO, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/esims/{id}")
+    @Operation(summary = "Get an Esim")
     public ResponseEntity<EsimDTO> getEsim(@PathVariable Long id) {
         log.debug("REST request to get Esim : {}", id);
         Optional<EsimDTO> esimDTO = esimService.findOne(id);
@@ -163,6 +166,7 @@ public class EsimResource {
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/esims/{id}")
+    @Operation(summary = "Delete an Esim")
     public ResponseEntity<Void> deleteEsim(@PathVariable Long id) {
         log.debug("REST request to delete Esim : {}", id);
         esimService.delete(id);

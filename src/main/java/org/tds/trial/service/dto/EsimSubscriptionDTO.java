@@ -1,6 +1,6 @@
 package org.tds.trial.service.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.util.Objects;
 import javax.validation.constraints.*;
@@ -10,7 +10,6 @@ import javax.validation.constraints.*;
  */
 public class EsimSubscriptionDTO implements Serializable {
 
-    @JsonIgnore
     private Long id;
 
     @NotNull
@@ -23,6 +22,10 @@ public class EsimSubscriptionDTO implements Serializable {
 
     @NotNull
     private String encodedActivationCode;
+
+    //TODO - upgrade to jackson 2.12 and use @JacksonIncludeProperties with just id instead
+    @JsonIgnoreProperties(value = { "subscription", "device", "iccid", "imsi", "eid", "state", "active" }, allowSetters = true)
+    private EsimDTO esim;
 
     public Long getId() {
         return id;
@@ -60,6 +63,14 @@ public class EsimSubscriptionDTO implements Serializable {
         return encodedActivationCode;
     }
 
+    public EsimDTO getEsim() {
+        return esim;
+    }
+
+    public void setEsim(EsimDTO esim) {
+        this.esim = esim;
+    }
+
     public void setEncodedActivationCode(String encodedActivationCode) {
         this.encodedActivationCode = encodedActivationCode;
     }
@@ -86,14 +97,9 @@ public class EsimSubscriptionDTO implements Serializable {
     }
 
     // prettier-ignore
-    @Override
-    public String toString() {
-        return "EsimSubscriptionDTO{" +
-            "id=" + getId() +
-            ", installAddress='" + getInstallAddress() + "'" +
-            ", activationCode='" + getActivationCode() + "'" +
-            ", confirmationCode='" + getConfirmationCode() + "'" +
-            ", encodedActivationCode='" + getEncodedActivationCode() + "'" +
-            "}";
-    }
+  @Override
+  public String toString() {
+    return "EsimSubscriptionDTO{" + "id=" + getId() + ", installAddress='" + getInstallAddress() + "'" + ", activationCode='" + getActivationCode() + "'" +
+        ", confirmationCode='" + getConfirmationCode() + "'" + ", encodedActivationCode='" + getEncodedActivationCode() + "'" + "}";
+  }
 }

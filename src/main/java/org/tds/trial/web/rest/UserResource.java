@@ -54,7 +54,8 @@ public class UserResource {
      * {@code POST  /tds-users} : Create a new tdsUser.
      *
      * @param tdsUserDTO the tdsUserDTO to create.
-     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new tdsUserDTO, or with status {@code 400 (Bad Request)} if the tdsUser has already an ID.
+     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new tdsUserDTO, or with status {@code 400 (Bad Request)} if the
+     * tdsUser has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/users")
@@ -76,9 +77,8 @@ public class UserResource {
      *
      * @param id the id of the tdsUserDTO to save.
      * @param tdsUserDTO the tdsUserDTO to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated tdsUserDTO,
-     * or with status {@code 400 (Bad Request)} if the tdsUserDTO is not valid,
-     * or with status {@code 500 (Internal Server Error)} if the tdsUserDTO couldn't be updated.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated tdsUserDTO, or with status {@code 400 (Bad Request)} if the
+     * tdsUserDTO is not valid, or with status {@code 500 (Internal Server Error)} if the tdsUserDTO couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/users/{id}")
@@ -88,17 +88,15 @@ public class UserResource {
         @Valid @RequestBody TdsUserDTO tdsUserDTO
     ) throws URISyntaxException {
         log.debug("REST request to update TdsUser : {}, {}", id, tdsUserDTO);
-        if (tdsUserDTO.getId() == null) {
+        if (id == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
-        }
-        if (!Objects.equals(id, tdsUserDTO.getId())) {
-            throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
         }
 
         if (!tdsUserRepository.existsById(id)) {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
+        tdsUserDTO.setId(id);
         TdsUserDTO result = tdsUserService.save(tdsUserDTO);
         return ResponseEntity
             .ok()
@@ -111,10 +109,9 @@ public class UserResource {
      *
      * @param id the id of the tdsUserDTO to save.
      * @param tdsUserDTO the tdsUserDTO to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated tdsUserDTO,
-     * or with status {@code 400 (Bad Request)} if the tdsUserDTO is not valid,
-     * or with status {@code 404 (Not Found)} if the tdsUserDTO is not found,
-     * or with status {@code 500 (Internal Server Error)} if the tdsUserDTO couldn't be updated.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated tdsUserDTO, or with status {@code 400 (Bad Request)} if the
+     * tdsUserDTO is not valid, or with status {@code 404 (Not Found)} if the tdsUserDTO is not found, or with status {@code 500 (Internal Server Error)} if the
+     * tdsUserDTO couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PatchMapping(value = "/users/{id}", consumes = "application/merge-patch+json")
@@ -124,17 +121,15 @@ public class UserResource {
         @NotNull @RequestBody TdsUserDTO tdsUserDTO
     ) throws URISyntaxException {
         log.debug("REST request to partial update TdsUser partially : {}, {}", id, tdsUserDTO);
-        if (tdsUserDTO.getId() == null) {
+        if (id == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
-        }
-        if (!Objects.equals(id, tdsUserDTO.getId())) {
-            throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
         }
 
         if (!tdsUserRepository.existsById(id)) {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
+        tdsUserDTO.setId(id);
         Optional<TdsUserDTO> result = tdsUserService.partialUpdate(tdsUserDTO);
 
         return ResponseUtil.wrapOrNotFound(

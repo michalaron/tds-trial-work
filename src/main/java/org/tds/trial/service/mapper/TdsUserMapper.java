@@ -5,6 +5,7 @@ import org.mapstruct.*;
 import org.tds.trial.domain.*;
 import org.tds.trial.service.dto.DeviceDTO;
 import org.tds.trial.service.dto.EsimDTO;
+import org.tds.trial.service.dto.EsimSubscriptionDTO;
 import org.tds.trial.service.dto.TdsUserDTO;
 
 /**
@@ -26,8 +27,11 @@ public interface TdsUserMapper extends EntityMapper<TdsUserDTO, TdsUser> {
 
     @Named(value = "esimToEsimDTOWithoutDevice")
     @Mapping(target = "device", ignore = true)
-    EsimDTO esimToEsimDTO(Esim device);
+    EsimDTO esimToEsimDTO(Esim esim);
 
     @IterableMapping(qualifiedByName = "esimToEsimDTOWithoutDevice")
-    Set<EsimDTO> esimSetToEsimDTOSet(Set<Esim> devices);
+    Set<EsimDTO> esimSetToEsimDTOSet(Set<Esim> esims);
+
+    @Mapping(target = "esim", ignore = true)
+    EsimSubscriptionDTO esimSubscriptionToEsimSubscriptionDTO(EsimSubscription esimSubscription);
 }

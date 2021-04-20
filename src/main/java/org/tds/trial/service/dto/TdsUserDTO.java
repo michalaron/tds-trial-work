@@ -31,6 +31,7 @@ public class TdsUserDTO implements Serializable {
     private String password;
 
     @JsonIgnoreProperties(value = { "user" }, allowSetters = true)
+    @Schema(description = "User devices", readOnly = true)
     private Set<DeviceDTO> devices = new HashSet<>();
 
     public Long getId() {

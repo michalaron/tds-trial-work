@@ -53,7 +53,7 @@ relationship OneToMany {
 }
 
 relationship OneToOne {
-  Esim{subscription required} to EsimSubscription
+  Esim{subscription required} to EsimSubscription{esim required}
 }
 
 relationship OneToMany {

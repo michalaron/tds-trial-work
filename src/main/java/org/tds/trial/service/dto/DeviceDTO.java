@@ -1,6 +1,7 @@
 package org.tds.trial.service.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Objects;
@@ -12,6 +13,7 @@ import javax.validation.constraints.*;
  */
 public class DeviceDTO implements Serializable {
 
+    @Schema(description = "Device ID", readOnly = true)
     private Long id;
 
     @NotNull
@@ -25,9 +27,12 @@ public class DeviceDTO implements Serializable {
 
     private String metatag;
 
+    //TODO - upgrade to jackson 2.12 and use @JacksonIncludeProperties with just id instead
+    @JsonIgnoreProperties(value = { "devices", "firstname", "surname", "email", "password" }, allowSetters = true)
     private TdsUserDTO user;
 
     @JsonIgnoreProperties(value = { "device" }, allowSetters = true)
+    @Schema(description = "User devices", readOnly = true)
     private Set<EsimDTO> esims = new HashSet<>();
 
     public Long getId() {
