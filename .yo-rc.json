@@ -42,7 +42,7 @@
     "clientThemeVariant": "",
     "withAdminUi": true,
     "languages": ["en", "fr"],
-    "entities": ["TdsUser", "Device"],
-    "lastLiquibaseTimestamp": 1618852452000
+    "entities": ["TdsUser", "Device", "Esim", "EsimSubscription"],
+    "lastLiquibaseTimestamp": 1618864780000
   }
 }

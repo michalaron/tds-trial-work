@@ -1,7 +1,10 @@
 package org.tds.trial.service.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 import javax.validation.constraints.*;
 
 /**
@@ -23,6 +26,9 @@ public class DeviceDTO implements Serializable {
     private String metatag;
 
     private TdsUserDTO user;
+
+    @JsonIgnoreProperties(value = { "device" }, allowSetters = true)
+    private Set<EsimDTO> esims = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -80,6 +86,14 @@ public class DeviceDTO implements Serializable {
         this.user = user;
     }
 
+    public Set<EsimDTO> getEsims() {
+        return esims;
+    }
+
+    public void setEsims(Set<EsimDTO> esims) {
+        this.esims = esims;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -102,16 +116,9 @@ public class DeviceDTO implements Serializable {
     }
 
     // prettier-ignore
-    @Override
-    public String toString() {
-        return "DeviceDTO{" +
-            "id=" + getId() +
-            ", identifier='" + getIdentifier() + "'" +
-            ", name='" + getName() + "'" +
-            ", email='" + getEmail() + "'" +
-            ", phoneNumber='" + getPhoneNumber() + "'" +
-            ", metatag='" + getMetatag() + "'" +
-            ", user='" + getUser() + "'" +
-            "}";
-    }
+  @Override
+  public String toString() {
+    return "DeviceDTO{" + "id=" + getId() + ", identifier='" + getIdentifier() + "'" + ", name='" + getName() + "'" + ", email='" + getEmail() + "'" + ", " +
+        "phoneNumber='" + getPhoneNumber() + "'" + ", metatag='" + getMetatag() + "'" + ", user=" + getUser() + "}";
+  }
 }

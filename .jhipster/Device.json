@@ -25,9 +25,16 @@
   ],
   "relationships": [
     {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "esim",
+      "otherEntityRelationshipName": "device",
+      "relationshipName": "esim"
+    },
+    {
       "relationshipType": "many-to-one",
       "otherEntityName": "tdsUser",
       "otherEntityRelationshipName": "device",
+      "relationshipValidateRules": "required",
       "relationshipName": "user"
     }
   ],

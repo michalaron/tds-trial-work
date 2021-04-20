@@ -17,7 +17,8 @@ public class TdsUser implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @NotNull
     @Column(name = "firstname", nullable = false)
@@ -40,15 +41,15 @@ public class TdsUser implements Serializable {
     private Set<Device> devices = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public TdsUser id(String id) {
+    public TdsUser id(Long id) {
         this.id = id;
         return this;
     }

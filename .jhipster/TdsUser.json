@@ -2,11 +2,6 @@
   "name": "TdsUser",
   "fields": [
     {
-      "fieldName": "id",
-      "fieldType": "String",
-      "fieldValidateRules": ["required"]
-    },
-    {
       "fieldName": "firstname",
       "fieldType": "String",
       "fieldValidateRules": ["required"]

@@ -7,29 +7,32 @@
                         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
     <!--
-        Added the entity Device.
+        Added the entity Esim.
     -->
-    <changeSet id="20210419171412-1" author="jhipster">
-        <createTable tableName="device">
+    <changeSet id="20210419203939-1" author="jhipster">
+        <createTable tableName="esim">
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="identifier" type="varchar(255)">
+            <column name="iccid" type="varchar(255)">
                 <constraints nullable="false" />
             </column>
-            <column name="name" type="varchar(255)">
+            <column name="imsi" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="eid" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
-            <column name="email" type="varchar(255)">
-                <constraints nullable="true" />
+            <column name="state" type="varchar(255)">
+                <constraints nullable="false" />
             </column>
-            <column name="phone_number" type="varchar(255)">
-                <constraints nullable="true" />
+            <column name="active" type="boolean">
+                <constraints nullable="false" />
             </column>
-            <column name="metatag" type="varchar(255)">
-                <constraints nullable="true" />
+            <column name="subscription_id" type="bigint">
+                <constraints nullable="false" unique="true" uniqueConstraintName="ux_esim__subscription_id" />
             </column>
-            <column name="user_id" type="bigint">
+            <column name="device_id" type="bigint">
                 <constraints nullable="false" />
             </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
@@ -46,18 +49,19 @@
           This can be customized by adding or removing 'faker' in the 'spring.liquibase.contexts'
           Spring Boot configuration key.
     -->
-    <changeSet id="20210419171412-1-data" author="jhipster" context="faker">
+    <changeSet id="20210419203939-1-data" author="jhipster" context="faker">
         <loadData
-                  file="config/liquibase/fake-data/device.csv"
+                  file="config/liquibase/fake-data/esim.csv"
                   separator=";"
-                  tableName="device">
+                  tableName="esim">
             <column name="id" type="numeric"/>
-            <column name="identifier" type="string"/>
-            <column name="name" type="string"/>
-            <column name="email" type="string"/>
-            <column name="phone_number" type="string"/>
-            <column name="metatag" type="string"/>
-            <column name="user_id" type="numeric"/>
+            <column name="iccid" type="string"/>
+            <column name="imsi" type="string"/>
+            <column name="eid" type="string"/>
+            <column name="state" type="string"/>
+            <column name="active" type="boolean"/>
+            <column name="subscription_id" type="numeric"/>
+            <column name="device_id" type="numeric"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>
     </changeSet>

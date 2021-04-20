@@ -1,0 +1,57 @@
+{
+  "name": "Esim",
+  "fields": [
+    {
+      "fieldName": "iccid",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "imsi",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "eid",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "state",
+      "fieldType": "EsimState",
+      "fieldValues": "RELEASED,INSTALLED,AVAILABLE,ALLOCATED,LINKED,CONFIRMED,UNAVAILABLE,CREATED,DISABLED,ENABLED,DELETED,UNKNOWN,QUARANTINE,ERROR,DOWNLOADED",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "active",
+      "fieldType": "Boolean",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "esimSubscription",
+      "otherEntityRelationshipName": "esim",
+      "relationshipValidateRules": "required",
+      "relationshipName": "subscription",
+      "ownerSide": true
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "device",
+      "otherEntityRelationshipName": "esim",
+      "relationshipValidateRules": "required",
+      "relationshipName": "device"
+    }
+  ],
+  "entityTableName": "esim",
+  "dto": "mapstruct",
+  "pagination": "no",
+  "service": "serviceClass",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20210419203939"
+}

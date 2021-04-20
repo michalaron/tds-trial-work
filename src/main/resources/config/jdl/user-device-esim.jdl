@@ -1,0 +1,69 @@
+
+entity TdsUser {
+    firstname String required
+    surname String required
+	email String required
+    password String required
+}
+
+entity Device {
+	identifier String required
+    name String
+    email String
+	phoneNumber String
+    metatag String
+}
+
+enum EsimState {
+  RELEASED,
+  INSTALLED,
+  AVAILABLE,
+  ALLOCATED,
+  LINKED,
+  CONFIRMED,
+  UNAVAILABLE,
+  CREATED,
+  DISABLED,
+  ENABLED,
+  DELETED,
+  UNKNOWN,
+  QUARANTINE,
+  ERROR,
+  DOWNLOADED
+}
+
+entity Esim {
+    iccid String required
+    imsi String required
+	eid String
+    state EsimState required
+    active Boolean required
+}
+
+entity EsimSubscription {
+    installAddress String required
+    activationCode String required
+	confirmationCode String
+    encodedActivationCode String required
+}
+
+// defining multiple OneToMany relationships with comments
+relationship OneToMany {
+	TdsUser{device} to Device{user required},
+}
+
+relationship OneToOne {
+  Esim{subscription required} to EsimSubscription
+}
+
+relationship OneToMany {
+	Device{esim} to Esim{device required}
+}
+
+// Set pagination options
+paginate TdsUser with pagination
+
+// Use Data Transfer Objects (DTO)
+dto * with mapstruct
+
+

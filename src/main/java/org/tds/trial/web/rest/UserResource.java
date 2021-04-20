@@ -1,5 +1,7 @@
 package org.tds.trial.web.rest;
 
+import io.swagger.annotations.Api;
+import io.swagger.v3.oas.annotations.Operation;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -13,7 +15,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -28,13 +29,14 @@ import tech.jhipster.web.util.ResponseUtil;
 /**
  * REST controller for managing {@link org.tds.trial.domain.TdsUser}.
  */
+@Api(tags = "User resource")
 @RestController
 @RequestMapping("/api")
-public class TdsUserResource {
+public class UserResource {
 
-    private final Logger log = LoggerFactory.getLogger(TdsUserResource.class);
+    private final Logger log = LoggerFactory.getLogger(UserResource.class);
 
-    private static final String ENTITY_NAME = "tdsUser";
+    private static final String ENTITY_NAME = "User";
 
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
@@ -43,7 +45,7 @@ public class TdsUserResource {
 
     private final TdsUserRepository tdsUserRepository;
 
-    public TdsUserResource(TdsUserService tdsUserService, TdsUserRepository tdsUserRepository) {
+    public UserResource(TdsUserService tdsUserService, TdsUserRepository tdsUserRepository) {
         this.tdsUserService = tdsUserService;
         this.tdsUserRepository = tdsUserRepository;
     }
@@ -55,7 +57,8 @@ public class TdsUserResource {
      * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new tdsUserDTO, or with status {@code 400 (Bad Request)} if the tdsUser has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    @PostMapping("/tds-users")
+    @PostMapping("/users")
+    @Operation(summary = "Create a user")
     public ResponseEntity<TdsUserDTO> createTdsUser(@Valid @RequestBody TdsUserDTO tdsUserDTO) throws URISyntaxException {
         log.debug("REST request to save TdsUser : {}", tdsUserDTO);
         if (tdsUserDTO.getId() != null) {
@@ -69,7 +72,7 @@ public class TdsUserResource {
     }
 
     /**
-     * {@code PUT  /tds-users/:id} : Updates an existing tdsUser.
+     * {@code PUT  /users/:id} : Updates an existing tdsUser.
      *
      * @param id the id of the tdsUserDTO to save.
      * @param tdsUserDTO the tdsUserDTO to update.
@@ -78,7 +81,8 @@ public class TdsUserResource {
      * or with status {@code 500 (Internal Server Error)} if the tdsUserDTO couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    @PutMapping("/tds-users/{id}")
+    @PutMapping("/users/{id}")
+    @Operation(summary = "Update a user")
     public ResponseEntity<TdsUserDTO> updateTdsUser(
         @PathVariable(value = "id", required = false) final Long id,
         @Valid @RequestBody TdsUserDTO tdsUserDTO
@@ -103,7 +107,7 @@ public class TdsUserResource {
     }
 
     /**
-     * {@code PATCH  /tds-users/:id} : Partial updates given fields of an existing tdsUser, field will ignore if it is null
+     * {@code PATCH  /users/:id} : Partial updates given fields of an existing tdsUser, field will ignore if it is null
      *
      * @param id the id of the tdsUserDTO to save.
      * @param tdsUserDTO the tdsUserDTO to update.
@@ -113,7 +117,8 @@ public class TdsUserResource {
      * or with status {@code 500 (Internal Server Error)} if the tdsUserDTO couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    @PatchMapping(value = "/tds-users/{id}", consumes = "application/merge-patch+json")
+    @PatchMapping(value = "/users/{id}", consumes = "application/merge-patch+json")
+    @Operation(summary = "Partially update a user")
     public ResponseEntity<TdsUserDTO> partialUpdateTdsUser(
         @PathVariable(value = "id", required = false) final Long id,
         @NotNull @RequestBody TdsUserDTO tdsUserDTO
@@ -139,12 +144,13 @@ public class TdsUserResource {
     }
 
     /**
-     * {@code GET  /tds-users} : get all the tdsUsers.
+     * {@code GET  /users} : get all the tdsUsers.
      *
      * @param pageable the pagination information.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of tdsUsers in body.
      */
-    @GetMapping("/tds-users")
+    @GetMapping("/users")
+    @Operation(summary = "Get all users")
     public ResponseEntity<List<TdsUserDTO>> getAllTdsUsers(Pageable pageable) {
         log.debug("REST request to get a page of TdsUsers");
         Page<TdsUserDTO> page = tdsUserService.findAll(pageable);
@@ -153,12 +159,13 @@ public class TdsUserResource {
     }
 
     /**
-     * {@code GET  /tds-users/:id} : get the "id" tdsUser.
+     * {@code GET  /users/:id} : get the "id" tdsUser.
      *
      * @param id the id of the tdsUserDTO to retrieve.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the tdsUserDTO, or with status {@code 404 (Not Found)}.
      */
-    @GetMapping("/tds-users/{id}")
+    @GetMapping("/users/{id}")
+    @Operation(summary = "Get a user")
     public ResponseEntity<TdsUserDTO> getTdsUser(@PathVariable Long id) {
         log.debug("REST request to get TdsUser : {}", id);
         Optional<TdsUserDTO> tdsUserDTO = tdsUserService.findOne(id);
@@ -166,12 +173,13 @@ public class TdsUserResource {
     }
 
     /**
-     * {@code DELETE  /tds-users/:id} : delete the "id" tdsUser.
+     * {@code DELETE  /users/:id} : delete the "id" tdsUser.
      *
      * @param id the id of the tdsUserDTO to delete.
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
-    @DeleteMapping("/tds-users/{id}")
+    @DeleteMapping("/users/{id}")
+    @Operation(summary = "Delete a user")
     public ResponseEntity<Void> deleteTdsUser(@PathVariable Long id) {
         log.debug("REST request to delete TdsUser : {}", id);
         tdsUserService.delete(id);

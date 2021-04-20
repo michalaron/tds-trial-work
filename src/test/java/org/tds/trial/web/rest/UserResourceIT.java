@@ -24,12 +24,12 @@ import org.tds.trial.service.dto.TdsUserDTO;
 import org.tds.trial.service.mapper.TdsUserMapper;
 
 /**
- * Integration tests for the {@link TdsUserResource} REST controller.
+ * Integration tests for the {@link UserResource} REST controller.
  */
 @IntegrationTest
 @AutoConfigureMockMvc
 @WithMockUser
-class TdsUserResourceIT {
+class UserResourceIT {
 
     private static final String DEFAULT_FIRSTNAME = "AAAAAAAAAA";
     private static final String UPDATED_FIRSTNAME = "BBBBBBBBBB";

@@ -19,6 +19,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 import org.tds.trial.IntegrationTest;
 import org.tds.trial.domain.Device;
+import org.tds.trial.domain.TdsUser;
 import org.tds.trial.repository.DeviceRepository;
 import org.tds.trial.service.dto.DeviceDTO;
 import org.tds.trial.service.mapper.DeviceMapper;
@@ -79,6 +80,16 @@ class DeviceResourceIT {
             .email(DEFAULT_EMAIL)
             .phoneNumber(DEFAULT_PHONE_NUMBER)
             .metatag(DEFAULT_METATAG);
+        // Add required entity
+        TdsUser tdsUser;
+        if (TestUtil.findAll(em, TdsUser.class).isEmpty()) {
+            tdsUser = TdsUserResourceIT.createEntity(em);
+            em.persist(tdsUser);
+            em.flush();
+        } else {
+            tdsUser = TestUtil.findAll(em, TdsUser.class).get(0);
+        }
+        device.setUser(tdsUser);
         return device;
     }
 
@@ -95,6 +106,16 @@ class DeviceResourceIT {
             .email(UPDATED_EMAIL)
             .phoneNumber(UPDATED_PHONE_NUMBER)
             .metatag(UPDATED_METATAG);
+        // Add required entity
+        TdsUser tdsUser;
+        if (TestUtil.findAll(em, TdsUser.class).isEmpty()) {
+            tdsUser = TdsUserResourceIT.createUpdatedEntity(em);
+            em.persist(tdsUser);
+            em.flush();
+        } else {
+            tdsUser = TestUtil.findAll(em, TdsUser.class).get(0);
+        }
+        device.setUser(tdsUser);
         return device;
     }
 

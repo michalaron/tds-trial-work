@@ -1,16 +1,22 @@
 package org.tds.trial.service.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 import javax.validation.constraints.*;
+import org.tds.trial.domain.Device;
 
 /**
  * A DTO for the {@link org.tds.trial.domain.TdsUser} entity.
  */
+@Schema(name = "User", description = "The user.")
 public class TdsUserDTO implements Serializable {
 
-    @NotNull
-    private String id;
+    @Schema(description = "User ID", readOnly = true)
+    private Long id;
 
     @NotNull
     private String firstname;
@@ -24,11 +30,14 @@ public class TdsUserDTO implements Serializable {
     @NotNull
     private String password;
 
-    public String getId() {
+    @JsonIgnoreProperties(value = { "user" }, allowSetters = true)
+    private Set<DeviceDTO> devices = new HashSet<>();
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -64,6 +73,14 @@ public class TdsUserDTO implements Serializable {
         this.password = password;
     }
 
+    public Set<DeviceDTO> getDevices() {
+        return devices;
+    }
+
+    public void setDevices(Set<DeviceDTO> devices) {
+        this.devices = devices;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -86,14 +103,9 @@ public class TdsUserDTO implements Serializable {
     }
 
     // prettier-ignore
-    @Override
-    public String toString() {
-        return "TdsUserDTO{" +
-            "id='" + getId() + "'" +
-            ", firstname='" + getFirstname() + "'" +
-            ", surname='" + getSurname() + "'" +
-            ", email='" + getEmail() + "'" +
-            ", password='" + getPassword() + "'" +
-            "}";
-    }
+  @Override
+  public String toString() {
+    return "TdsUserDTO{" + "id=" + getId() + ", firstname='" + getFirstname() + "'" + ", surname='" + getSurname() + "'" + ", email='" + getEmail() + "'" +
+        ", password='" + getPassword() + "'" + "}";
+  }
 }

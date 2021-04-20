@@ -2,6 +2,8 @@ package org.tds.trial.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
@@ -34,7 +36,12 @@ public class Device implements Serializable {
     @Column(name = "metatag")
     private String metatag;
 
-    @ManyToOne
+    @OneToMany(mappedBy = "device")
+    @JsonIgnoreProperties(value = { "device" }, allowSetters = true)
+    private Set<Esim> esims = new HashSet<>();
+
+    @ManyToOne(optional = false)
+    @NotNull
     @JsonIgnoreProperties(value = { "devices" }, allowSetters = true)
     private TdsUser user;
 
@@ -115,6 +122,37 @@ public class Device implements Serializable {
 
     public void setMetatag(String metatag) {
         this.metatag = metatag;
+    }
+
+    public Set<Esim> getEsims() {
+        return this.esims;
+    }
+
+    public Device esims(Set<Esim> esims) {
+        this.setEsims(esims);
+        return this;
+    }
+
+    public Device addEsim(Esim esim) {
+        this.esims.add(esim);
+        esim.setDevice(this);
+        return this;
+    }
+
+    public Device removeEsim(Esim esim) {
+        this.esims.remove(esim);
+        esim.setDevice(null);
+        return this;
+    }
+
+    public void setEsims(Set<Esim> esims) {
+        if (this.esims != null) {
+            this.esims.forEach(i -> i.setDevice(null));
+        }
+        if (esims != null) {
+            esims.forEach(i -> i.setDevice(this));
+        }
+        this.esims = esims;
     }
 
     public TdsUser getUser() {

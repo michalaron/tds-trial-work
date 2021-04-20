@@ -83,7 +83,7 @@ public class TdsUserService {
      * @return the entity.
      */
     @Transactional(readOnly = true)
-    public Optional<TdsUserDTO> findOne(String id) {
+    public Optional<TdsUserDTO> findOne(Long id) {
         log.debug("Request to get TdsUser : {}", id);
         return tdsUserRepository.findById(id).map(tdsUserMapper::toDto);
     }
@@ -93,7 +93,7 @@ public class TdsUserService {
      *
      * @param id the id of the entity.
      */
-    public void delete(String id) {
+    public void delete(Long id) {
         log.debug("Request to delete TdsUser : {}", id);
         tdsUserRepository.deleteById(id);
     }

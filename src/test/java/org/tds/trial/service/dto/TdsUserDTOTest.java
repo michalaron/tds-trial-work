@@ -11,12 +11,12 @@ class TdsUserDTOTest {
     void dtoEqualsVerifier() throws Exception {
         TestUtil.equalsVerifier(TdsUserDTO.class);
         TdsUserDTO tdsUserDTO1 = new TdsUserDTO();
-        tdsUserDTO1.setId("id1");
+        tdsUserDTO1.setId(1L);
         TdsUserDTO tdsUserDTO2 = new TdsUserDTO();
         assertThat(tdsUserDTO1).isNotEqualTo(tdsUserDTO2);
         tdsUserDTO2.setId(tdsUserDTO1.getId());
         assertThat(tdsUserDTO1).isEqualTo(tdsUserDTO2);
-        tdsUserDTO2.setId("id2");
+        tdsUserDTO2.setId(2L);
         assertThat(tdsUserDTO1).isNotEqualTo(tdsUserDTO2);
         tdsUserDTO1.setId(null);
         assertThat(tdsUserDTO1).isNotEqualTo(tdsUserDTO2);

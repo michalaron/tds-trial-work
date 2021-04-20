@@ -11,7 +11,7 @@
     -->
     <changeSet id="20210419171411-1" author="jhipster">
         <createTable tableName="tds_user">
-            <column name="id" type="varchar(255)">
+            <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="firstname" type="varchar(255)">
@@ -45,7 +45,7 @@
                   file="config/liquibase/fake-data/tds_user.csv"
                   separator=";"
                   tableName="tds_user">
-            <column name="id" type="string"/>
+            <column name="id" type="numeric"/>
             <column name="firstname" type="string"/>
             <column name="surname" type="string"/>
             <column name="email" type="string"/>
